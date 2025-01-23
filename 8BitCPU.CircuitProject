@@ -4,7 +4,7 @@
 		<lc:ProjectId>c5f4b2ac-4f77-40f4-a665-a7ab2f47e6f9</lc:ProjectId>
 		<lc:Zoom>0.9353932584269665</lc:Zoom>
 		<lc:Frequency>2</lc:Frequency>
-		<lc:LogicalCircuitId>69ad7b61-7967-4953-82c5-bbe2bb16b21e</lc:LogicalCircuitId>
+		<lc:LogicalCircuitId>04fc91c9-b1b1-4a4b-95a3-96925cfe9f4d</lc:LogicalCircuitId>
 		<lc:CategoryTextNoteCollapsed>True</lc:CategoryTextNoteCollapsed>
 	</lc:Project>
 	<lc:CollapsedCategory>
@@ -30,6 +30,9 @@
 	</lc:CollapsedCategory>
 	<lc:CollapsedCategory>
 		<lc:Name>Selector</lc:Name>
+	</lc:CollapsedCategory>
+	<lc:CollapsedCategory>
+		<lc:Name>Util</lc:Name>
 	</lc:CollapsedCategory>
 	<lc:LogicalCircuit>
 		<lc:LogicalCircuitId>04fc91c9-b1b1-4a4b-95a3-96925cfe9f4d</lc:LogicalCircuitId>
@@ -25260,8 +25263,8 @@ KAIpAjACMQIyAjMCNAI1AjYCNwI4AjkCQAJBAkICQwJEAkUCRgJHAkgCSQJQAlECUgJTAlQCVQI=</lc
 	<lc:TextNote>
 		<lc:TextNoteId>6b4b0f9a-b3cf-4a2a-bb39-9901ab0a487b</lc:TextNoteId>
 		<lc:LogicalCircuitId>04fc91c9-b1b1-4a4b-95a3-96925cfe9f4d</lc:LogicalCircuitId>
-		<lc:X>25</lc:X>
-		<lc:Y>1</lc:Y>
+		<lc:X>24</lc:X>
+		<lc:Y>11</lc:Y>
 		<lc:Width>8</lc:Width>
 		<lc:Height>13</lc:Height>
 		<lc:Note>&lt;FlowDocument TextAlignment="Left" PagePadding="5,0,5,0" AllowDrop="True" NumberSubstitution.CultureSource="User" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"&gt;&lt;Paragraph&gt;&lt;Run xml:lang="zh-cn"&gt;11 2048&lt;/Run&gt;&lt;/Paragraph&gt;&lt;Paragraph&gt;&lt;Run xml:lang="zh-cn"&gt;12 4096&lt;/Run&gt;&lt;/Paragraph&gt;&lt;Paragraph&gt;&lt;Run xml:lang="zh-cn"&gt;13 8192&lt;/Run&gt;&lt;/Paragraph&gt;&lt;Paragraph&gt;&lt;Run xml:lang="zh-cn"&gt;14 16384&lt;/Run&gt;&lt;/Paragraph&gt;&lt;Paragraph&gt;&lt;Run xml:lang="zh-cn"&gt;15 32768&lt;/Run&gt;&lt;/Paragraph&gt;&lt;Paragraph&gt;&lt;Run xml:lang="zh-cn"&gt;16 65536&lt;/Run&gt;&lt;/Paragraph&gt;&lt;Paragraph&gt;&lt;Run xml:lang="zh-cn"&gt;32 4,294,967,296&lt;/Run&gt;&lt;/Paragraph&gt;&lt;Paragraph&gt;&lt;Run xml:lang="zh-cn" xml:space="preserve" /&gt;&lt;/Paragraph&gt;&lt;Paragraph&gt;&lt;Run xml:lang="zh-cn" xml:space="preserve" /&gt;&lt;/Paragraph&gt;&lt;/FlowDocument&gt;</lc:Note>
