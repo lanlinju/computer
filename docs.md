@@ -252,3 +252,19 @@ $$
 | 0   | 0   | 0    | ↑    | 0    | 1    |
 | 0   | 0   | 1    | ↑    | 1    | 0    |
 | 0   | 0   | X    | 0    | Q    | Q̅    |
+
+## 计数器
+
+### 分频器
+电路图如下：
+![分频器](img/counter/frequency_divider.png)
+
+#### 电路实现
+![分频器](img/counter/frequency_divider_impl.png)
+
+### 8位行波计数器
+电路图如下：
+![计数器](img/counter/8bit_counter.png)
+
+#### 电路实现
+![计数器](img/counter/8bit_counter_impl.png)
