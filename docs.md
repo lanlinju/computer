@@ -268,3 +268,22 @@ $$
 
 #### 电路实现
 ![计数器](img/counter/8bit_counter_impl.png)
+
+## 寄存器 (edge-triggered）
+
+### 三态门（Three-State Gate）
+
+#### 电路实现
+![三态门](img/basic/gate.png)
+
+### 8位锁存器
+电路图如下：
+![8位锁存器](img/register/latch.png)
+
+#### 电路实现
+![8位锁存器](img/register/latch_impl.png)
+
+### 8位寄存器
+
+#### 电路实现
+![8位寄存器](img/register/register.png)
