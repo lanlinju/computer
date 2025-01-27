@@ -336,3 +336,8 @@ $$
 
 16x1Lbyte存储器电路实现如下：
 ![16x1Lbyte存储器](img/memory/16x1Lbyte_impl.png)
+
+## 半自动ALU
+
+电路实现:
+![半自动ALU](img/ALU/semi-ALU.png)
