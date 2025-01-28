@@ -346,3 +346,20 @@ $$
 
 电路实现:
 ![全自动ALU](img/ALU/full_auto_adder.png)
+
+## 程序计数器和内存控制器
+
+### 程序计数器
+
+电路实现:
+![程序计数器](img/counter/program_counter.png)
+
+### 内存控制器
+
+电路实现:
+![内存控制器](img/memory/memory_controller.png)
+
+
+### 程序计数器和内存控制器测试
+
+![Test](img/test/program_counter_and_memory_controller_test.png)
