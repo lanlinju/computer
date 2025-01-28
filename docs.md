@@ -341,3 +341,8 @@ $$
 
 电路实现:
 ![半自动ALU](img/ALU/semi-ALU.png)
+
+## 全自动ALU
+
+电路实现:
+![全自动ALU](img/ALU/full_auto_adder.png)
