@@ -419,3 +419,7 @@ print('Finish compile!!!')
 ## 逻辑运算
 
 ![逻辑运算](img/ALU/logic_operation.png)
+
+## 程序状态字
+
+![程序状态字](img/ALU/program_state_word.png)
