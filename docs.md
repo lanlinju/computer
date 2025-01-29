@@ -415,3 +415,7 @@ with open(filename, 'wb') as file:
 
 print('Finish compile!!!')
 ```
+
+## 逻辑运算
+
+![逻辑运算](img/ALU/logic_operation.png)
