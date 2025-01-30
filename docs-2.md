@@ -72,3 +72,30 @@ W=1，表示第一个寄存器写，为11(3)。 R=3，表示第3个寄存器读�
 |0|1|1|1|写|
 |1|1|0|1|无效|
 |0|0|0|0|无效|
+
+## CPU控制器Control Unit
+
+### 读写控制器RWC
+
+![读写控制器RWC](img/cu/RWController.png)
+
+### CPU控制器电路
+
+![CPU控制器电路](img/cu/control_unit.png)
+
+组件显示如下：
+
+![CU Order](img/cu/cu_order.png)
+
+### ALU升级
+
+![ALU升级](img/ALU/alu.png)
+
+- 支持程序状态字PSW
+  - 第一位： 溢出标志位
+  - 第二位： 零标志位，全位0时，为1
+  - 第三位： 奇数偶数位，奇数时为1
+
+### CPU实现
+
+![CPU实现](img/cpu/cpu_1.png)
