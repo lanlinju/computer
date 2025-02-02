@@ -81,7 +81,17 @@ PC_OUT = PC_CS
 PC_IN = PC_CS | PC_WE
 PC_INC = PC_CS | PC_WE | PC_EN
 
+CYC = 2 ** 30
 HLT = 2 ** 31
 
+ADDR2 = 1 << 7
+ADDR1 = 1 << 6
 
+ADDR2_SHIFT = 4
+ADDR1_SHIFT = 2
+
+AM_INS = 0 # 立即寻址
+AM_REG = 1 # 寄存器寻址
+AM_DIR = 2 # 直接寻址
+AM_RAM = 3 # 寄存器间接寻址
 
