@@ -11,11 +11,11 @@ FETCH = [
     pin.RAM_OUT | pin.SRC_IN | pin.PC_INC,
 ]
 
-MOV = 0 | pin.ADDR2  # 1000_0000
-ADD = (1 << pin.ADDR2_SHIFT) | pin.ADDR2  # 1001_0000
+MOV = 0 | pin.ADDR2  # 1000_ssdd
+ADD = (1 << pin.ADDR2_SHIFT) | pin.ADDR2  # 1001_ssdd
 
 
-NOP = 0
+NOP = 0     # 0000_0000
 HLT = 0x3f  # 0011_1111
 
 INSTRUCTIONS = {
