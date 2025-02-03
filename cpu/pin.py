@@ -17,10 +17,11 @@ SP = 14
 BP = 15
 CS = 16
 DS = 17
-ES = 18
-VEC = 19
-T1 = 20
-T2 = 21
+SS = 18
+ES = 19
+VEC = 20
+T1 = 21
+T2 = 22
 
 MSR_OUT = MSR
 MAR_OUT = MAR
@@ -39,6 +40,7 @@ SP_OUT = SP
 BP_OUT = BP
 CS_OUT = CS
 DS_OUT = DS
+SS_OUT = SS
 ES_OUT = ES
 VEC_OUT = VEC
 T1_OUT = T1
@@ -63,13 +65,14 @@ SP_IN = SP << _DST_SHIFT
 BP_IN = BP << _DST_SHIFT
 CS_IN = CS << _DST_SHIFT
 DS_IN = DS << _DST_SHIFT
+SS_IN = SS << _DST_SHIFT
 ES_IN = ES << _DST_SHIFT
 VEC_IN = VEC << _DST_SHIFT
 T1_IN = T1 << _DST_SHIFT
 T2_IN = T2 << _DST_SHIFT
 
-SCR_R = 2 ** 10
-SCR_W = 2 ** 11
+SRC_R = 2 ** 10
+SRC_W = 2 ** 11
 DST_R = 2 ** 12
 DST_W = 2 ** 13
 
@@ -81,11 +84,25 @@ PC_OUT = PC_CS
 PC_IN = PC_CS | PC_WE
 PC_INC = PC_CS | PC_WE | PC_EN
 
+_OP_SHIFT = 17
+
+OP_ADD = 0
+OP_SUB = 1 << _OP_SHIFT
+OP_INC = 2 << _OP_SHIFT
+OP_DEC = 3 << _OP_SHIFT
+OP_AND = 4 << _OP_SHIFT
+OP_OR = 5 << _OP_SHIFT
+OP_XOR = 6 << _OP_SHIFT
+OP_NOT = 7 << _OP_SHIFT
+
+ALU_OUT = 1 << 20
+ALU_PSW = 1 << 21
+
 CYC = 2 ** 30
 HLT = 2 ** 31
 
-ADDR2 = 1 << 7
-ADDR1 = 1 << 6
+ADDR2 = 1 << 7 # 1000_0000
+ADDR1 = 1 << 6 # 0100_0000
 
 ADDR2_SHIFT = 4
 ADDR1_SHIFT = 2

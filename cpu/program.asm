@@ -1,9 +1,5 @@
-MOV A, 5; This is a comment
+MOV D, 1;
 
-MOV A, 0x30;
+ADD D, 5;
 
-MOV C, 5;
-
-MOV D, 0x30;
-
-hlt;
+HLT

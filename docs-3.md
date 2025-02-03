@@ -49,3 +49,62 @@ FETCH = [
 
 ### MOV指令
 
+```python
+MOV: {
+            (pin.AM_REG, pin.AM_INS): [  # MOV A, 5
+                pin.DST_W | pin.SRC_OUT,
+            ],
+            (pin.AM_REG, pin.AM_REG): [  # MOV A, B
+                pin.DST_W | pin.SRC_R,
+            ],
+            (pin.AM_REG, pin.AM_DIR): [  # MOV A, [5]
+                pin.MAR_IN | pin.SRC_OUT,
+                pin.DST_W | pin.RAM_OUT,
+            ],
+            (pin.AM_REG, pin.AM_RAM): [  # MOV A, [B]
+                pin.SRC_R | pin.MAR_IN,
+                pin.DST_W | pin.RAM_OUT,
+            ],
+            (pin.AM_DIR, pin.AM_INS): [  # MOV [0x9], 5
+                pin.DST_OUT | pin.MAR_IN,
+                pin.RAM_IN | pin.SRC_OUT,
+            ],
+            (pin.AM_DIR, pin.AM_REG): [  # MOV [0x9], C
+                pin.DST_OUT | pin.MAR_IN,
+                pin.RAM_IN | pin.SRC_R,
+            ],
+            (pin.AM_DIR, pin.AM_DIR): [  # MOV [0x3f], [0x2e]
+                pin.SRC_OUT | pin.MAR_IN,
+                pin.RAM_OUT | pin.T1_IN,
+                pin.DST_OUT | pin.MAR_IN,
+                pin.RAM_IN | pin.T1_OUT,
+            ],
+            (pin.AM_DIR, pin.AM_RAM): [  # MOV [0x3f], [C]
+                pin.SRC_R | pin.MAR_IN,
+                pin.RAM_OUT | pin.T1_IN,
+                pin.DST_OUT | pin.MAR_IN,
+                pin.RAM_IN | pin.T1_OUT,
+            ],
+            (pin.AM_RAM, pin.AM_INS): [  # MOV [A], 5
+                pin.DST_R | pin.MAR_IN,
+                pin.RAM_IN | pin.SRC_OUT,
+            ],
+            (pin.AM_RAM, pin.AM_REG): [  # MOV [A], C
+                pin.DST_R | pin.MAR_IN,
+                pin.RAM_IN | pin.SRC_R,
+            ],
+            (pin.AM_RAM, pin.AM_DIR): [  # MOV [A], [0x2e]
+                pin.SRC_OUT | pin.MAR_IN,
+                pin.RAM_OUT | pin.T1_IN,
+                pin.DST_R | pin.MAR_IN,
+                pin.RAM_IN | pin.T1_OUT,
+            ],
+            (pin.AM_RAM, pin.AM_RAM): [  # MOV [A], [C]
+                pin.SRC_R | pin.MAR_IN,
+                pin.RAM_OUT | pin.T1_IN,
+                pin.DST_R | pin.MAR_IN,
+                pin.RAM_IN | pin.T1_OUT,
+            ],
+        },
+```
+
