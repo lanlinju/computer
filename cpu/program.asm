@@ -1,5 +1,15 @@
-MOV D, 1;
+MOV D, 0;
 
-ADD D, 5;
+INC D;
+INC D;
+INC D;
+INC D;
+INC D;
+
+DEC D;
+DEC D;
+DEC D;
+DEC D;
+DEC D;
 
 HLT

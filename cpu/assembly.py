@@ -16,7 +16,7 @@ ADD = (1 << pin.ADDR2_SHIFT) | pin.ADDR2  # 1001_0000, 1001_ssdd
 SUB = (2 << pin.ADDR2_SHIFT) | pin.ADDR2  # 1011_0000, 1011_ssdd
 
 INC = (0 << pin.ADDR1_SHIFT) | pin.ADDR1  # 0100_0000, 0100_00dd
-DEC = (1 << pin.ADDR1_SHIFT) | pin.ADDR1  # 0101_0000, 0101_00dd
+DEC = (1 << pin.ADDR1_SHIFT) | pin.ADDR1  # 0100_0100, 0100_01dd
 
 NOP = 0     # 0000_0000
 HLT = 0x3f  # 0011_1111
@@ -85,12 +85,39 @@ INSTRUCTIONS = {
                 pin.SRC_OUT | pin.B_IN,
                 pin.OP_ADD | pin.ALU_OUT | pin.DST_W | pin.ALU_PSW,
             ],
-            # (pin.AM_REG, pin.AM_REG): [  # MOV A, B
-            #     pin.DST_W | pin.SRC_R,
-            # ],
-        }
+            (pin.AM_REG, pin.AM_REG): [  # ADD D, C
+                pin.DST_R | pin.A_IN,
+                pin.SRC_R | pin.B_IN,
+                pin.OP_ADD | pin.ALU_OUT | pin.DST_W | pin.ALU_PSW,
+            ],
+        },
+        SUB: {
+            (pin.AM_REG, pin.AM_INS): [  # SUB D, 5
+                pin.DST_R | pin.A_IN,
+                pin.SRC_OUT | pin.B_IN,
+                pin.OP_SUB | pin.ALU_OUT | pin.DST_W | pin.ALU_PSW,
+            ],
+            (pin.AM_REG, pin.AM_REG): [  # SUB D, C
+                pin.DST_R | pin.A_IN,
+                pin.SRC_R | pin.B_IN,
+                pin.OP_SUB | pin.ALU_OUT | pin.DST_W | pin.ALU_PSW,
+            ],
+        },
     },
-    1: {},
+    1: {
+        INC: {
+            pin.AM_REG: [  # INC D
+                pin.DST_R | pin.A_IN,
+                pin.OP_INC | pin.ALU_OUT | pin.DST_W | pin.ALU_PSW,
+            ],
+        },
+        DEC: {
+            pin.AM_REG: [  # DEC D
+                pin.DST_R | pin.A_IN,
+                pin.OP_DEC | pin.ALU_OUT | pin.DST_W | pin.ALU_PSW,
+            ],
+        },
+    },
     0: {
         NOP: [
             pin.CYC,

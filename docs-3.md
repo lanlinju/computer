@@ -108,3 +108,60 @@ MOV: {
         },
 ```
 
+## 算术运算指令
+
+### 加法ADD指令
+
+```python
+        ADD: {
+            (pin.AM_REG, pin.AM_INS): [  # ADD D, 5
+                pin.DST_R | pin.A_IN,
+                pin.SRC_OUT | pin.B_IN,
+                pin.OP_ADD | pin.ALU_OUT | pin.DST_W | pin.ALU_PSW,
+            ],
+            (pin.AM_REG, pin.AM_REG): [  # ADD D, C
+                pin.DST_R | pin.A_IN,
+                pin.SRC_R | pin.B_IN,
+                pin.OP_ADD | pin.ALU_OUT | pin.DST_W | pin.ALU_PSW,
+            ],
+        },
+```
+
+### 减法SUB指令
+
+```python
+        SUB: {
+            (pin.AM_REG, pin.AM_INS): [  # SUB D, 5
+                pin.DST_R | pin.A_IN,
+                pin.SRC_OUT | pin.B_IN,
+                pin.OP_SUB | pin.ALU_OUT | pin.DST_W | pin.ALU_PSW,
+            ],
+            (pin.AM_REG, pin.AM_REG): [  # SUB D, C
+                pin.DST_R | pin.A_IN,
+                pin.SRC_R | pin.B_IN,
+                pin.OP_SUB | pin.ALU_OUT | pin.DST_W | pin.ALU_PSW,
+            ],
+        },
+```
+
+### 加一INC指令
+
+```python
+        INC: {
+            pin.AM_REG: [  # INC D
+                pin.DST_R | pin.A_IN,
+                pin.OP_INC | pin.ALU_OUT | pin.DST_W | pin.ALU_PSW,
+            ],
+        },
+```
+
+### 减一DEC指令
+
+```python
+        DEC: {
+            pin.AM_REG: [  # DEC D
+                pin.DST_R | pin.A_IN,
+                pin.OP_DEC | pin.ALU_OUT | pin.DST_W | pin.ALU_PSW,
+            ],
+        },
+```
