@@ -24,12 +24,16 @@ DEC = (1 << pin.ADDR1_SHIFT) | pin.ADDR1  # 0100_0100, 0100_01dd
 NOT = (2 << pin.ADDR1_SHIFT) | pin.ADDR1
 JMP = (3 << pin.ADDR1_SHIFT) | pin.ADDR1
 
-JO = (4 << pin.ADDR1_SHIFT) | pin.ADDR1 # 01010000, (0x50)
+JO = (4 << pin.ADDR1_SHIFT) | pin.ADDR1  # 01010000, (0x50)
 JNO = (5 << pin.ADDR1_SHIFT) | pin.ADDR1
 JZ = (6 << pin.ADDR1_SHIFT) | pin.ADDR1
 JNZ = (7 << pin.ADDR1_SHIFT) | pin.ADDR1
 JP = (8 << pin.ADDR1_SHIFT) | pin.ADDR1
 JNP = (9 << pin.ADDR1_SHIFT) | pin.ADDR1
+
+PUSH = (10 << pin.ADDR1_SHIFT) | pin.ADDR1
+POP = (11 << pin.ADDR1_SHIFT) | pin.ADDR1
+
 
 NOP = 0     # 0000_0000
 HLT = 0x3f  # 0011_1111
@@ -217,6 +221,34 @@ INSTRUCTIONS = {
         JNP: {
             pin.AM_INS: [
                 pin.DST_OUT | pin.PC_IN,
+            ],
+        },
+        PUSH: {
+            pin.AM_INS: [
+                pin.SP_OUT | pin.A_IN,
+                pin.OP_DEC | pin.ALU_OUT | pin.SP_IN,
+                pin.SP_OUT | pin.MAR_IN,
+                pin.SS_OUT | pin.MSR_IN,
+                pin.DST_OUT | pin.RAM_IN,
+                pin.CS_OUT | pin.MSR_IN,
+            ],
+            pin.AM_REG: [
+                pin.SP_OUT | pin.A_IN,
+                pin.OP_DEC | pin.ALU_OUT | pin.SP_IN,
+                pin.SP_OUT | pin.MAR_IN,
+                pin.SS_OUT | pin.MSR_IN,
+                pin.DST_R | pin.RAM_IN,
+                pin.CS_OUT | pin.MSR_IN,
+            ],
+        },
+        POP: {
+            pin.AM_REG: [
+                pin.SP_OUT | pin.MAR_IN,
+                pin.SS_OUT | pin.MSR_IN,
+                pin.DST_W | pin.RAM_OUT,
+                pin.SP_OUT | pin.A_IN,
+                pin.OP_INC | pin.ALU_OUT | pin.SP_IN,
+                pin.CS_OUT | pin.MSR_IN,
             ],
         },
     },

@@ -266,3 +266,61 @@ decrease:
 
     HLT
 ```
+
+## 堆栈操作指令
+
+### PUSH指令
+
+```python
+        PUSH: {
+            pin.AM_INS: [
+                pin.SP_OUT | pin.A_IN,
+                pin.OP_DEC | pin.ALU_OUT | pin.SP_IN,
+                pin.SP_OUT | pin.MAR_IN,
+                pin.SS_OUT | pin.MSR_IN,
+                pin.DST_OUT | pin.RAM_IN,
+                pin.CS_OUT | pin.MSR_IN,
+            ],
+            pin.AM_REG: [
+                pin.SP_OUT | pin.A_IN,
+                pin.OP_DEC | pin.ALU_OUT | pin.SP_IN,
+                pin.SP_OUT | pin.MAR_IN,
+                pin.SS_OUT | pin.MSR_IN,
+                pin.DST_R | pin.RAM_IN,
+                pin.CS_OUT | pin.MSR_IN,
+            ],
+        },
+```
+
+### POP指令
+
+```python
+        POP: {
+            pin.AM_REG: [
+                pin.SP_OUT | pin.MAR_IN,
+                pin.SS_OUT | pin.MSR_IN,
+                pin.DST_W | pin.RAM_OUT,
+                pin.SP_OUT | pin.A_IN,
+                pin.OP_INC | pin.ALU_OUT | pin.SP_IN,
+                pin.CS_OUT | pin.MSR_IN,
+            ],
+        },
+```
+
+### ASM例子
+
+```python
+    MOV SS, 1
+    MOV SP, 0x10; [0, 0xF]
+    MOV D, 10;
+
+    PUSH D
+    PUSH 1
+
+    POP C
+    POP B
+    MOV A, C;
+    ADD A, B;
+    MOV D, A;
+    HLT
+```
