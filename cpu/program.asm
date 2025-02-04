@@ -1,5 +1,8 @@
-MOV D, 5; 00000101
+    MOV D, 1;
 
-NOT D; 11111010 (250)
+increase:
+    INC D;
 
-HLT
+    JMP increase
+    
+    HLT

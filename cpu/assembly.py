@@ -22,6 +22,7 @@ XOR = (6 << pin.ADDR2_SHIFT) | pin.ADDR2
 INC = (0 << pin.ADDR1_SHIFT) | pin.ADDR1  # 0100_0000, 0100_00dd
 DEC = (1 << pin.ADDR1_SHIFT) | pin.ADDR1  # 0100_0100, 0100_01dd
 NOT = (2 << pin.ADDR1_SHIFT) | pin.ADDR1
+JMP = (3 << pin.ADDR1_SHIFT) | pin.ADDR1
 
 NOP = 0     # 0000_0000
 HLT = 0x3f  # 0011_1111
@@ -174,6 +175,11 @@ INSTRUCTIONS = {
             pin.AM_REG: [
                 pin.DST_R | pin.A_IN,
                 pin.OP_NOT | pin.ALU_OUT | pin.DST_W | pin.ALU_PSW,
+            ],
+        },
+        JMP: {
+            pin.AM_INS: [
+                pin.DST_OUT | pin.PC_IN,
             ],
         },
     },

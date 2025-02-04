@@ -11,21 +11,23 @@ outputfile = os.path.join(dirname, 'program.bin')
 annotation = re.compile(r"(.*?);.*")
 
 codes = []
+marks = {}
 
 OP2 = {
     'MOV': ASM.MOV,  # 1000_0000, 0x80
     'ADD': ASM.ADD,  # 1001_0000, 0x81
     'SUB': ASM.SUB,  # 1011_0000, 0xB0
-    'CMP': ASM.CMP, 
+    'CMP': ASM.CMP,
     'AND': ASM.AND,
     'OR': ASM.OR,
     'XOR': ASM.XOR,
 }
 
 OP1 = {
-    'INC': ASM.INC, # 0100_0000
-    'DEC': ASM.DEC, # 0100_0100
+    'INC': ASM.INC,  # 0100_0000
+    'DEC': ASM.DEC,  # 0100_0100
     'NOT': ASM.NOT,
+    'JMP': ASM.JMP,
 }
 
 OP0 = {
@@ -47,12 +49,17 @@ REGISTERS = {
 
 class Code(object):
 
-    def __init__(self, number, source):
+    TYPE_CODE = 1
+    TYPE_LABLE = 2
+
+    def __init__(self, number, source: str):
         self.number = number
         self.source = source.upper()
         self.op = None
         self.dst = None
         self.src = None
+        self.type = self.TYPE_CODE
+        self.index = 0
         self.prepare_source()  # 解析op, dst, src
 
     def get_op(self):  # 获取操作码二进制指令
@@ -65,8 +72,12 @@ class Code(object):
         raise SyntaxError(self)
 
     def get_am(self, addr):
+        global marks
+
         if not addr:
             return None, None
+        if addr in marks:  # 标签
+            return pin.AM_INS, marks[addr].index * 3
         if addr in REGISTERS:  # 寄存器寻址
             return pin.AM_REG, REGISTERS[addr]
         if re.match(r'^[0-9]+$', addr):  # 立即数寻址
@@ -86,6 +97,11 @@ class Code(object):
         raise SyntaxError(self)
 
     def prepare_source(self):
+        if self.source.endswith(':'):  # 标签
+            self.type = self.TYPE_LABLE
+            self.name = self.source.strip(':')
+            return
+
         tub = self.source.split(',')
         if len(tub) > 2:
             raise SyntaxError(self)
@@ -139,6 +155,9 @@ class SyntaxError(Exception):
 
 
 def compile_program():
+    global codes
+    global marks
+
     with open(inputfile, encoding='utf-8') as file:
         lines = file.readlines()
 
@@ -151,8 +170,28 @@ def compile_program():
             code = Code(index + 1, source)
             codes.append(code)
 
+        code = Code(index + 2, 'HLT')
+        codes.append(code)
+
+        result = []
+
+        current = None
+        for var in range(len(codes) - 1, -1, -1):
+            code = codes[var]
+            if code.type == Code.TYPE_CODE:
+                current = code
+                result.insert(0, code)
+                continue
+            if code.type == Code.TYPE_LABLE:
+                marks[code.name] = current
+                continue
+            raise SyntaxError(code)
+
+        for index, var in enumerate(result):
+            var.index = index
+
         with open(outputfile, 'wb') as file:
-            for code in codes:
+            for code in result:
                 values = code.compile_code()
                 for value in values:
                     result = value.to_bytes(1, byteorder='little')
