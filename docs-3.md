@@ -165,3 +165,67 @@ MOV: {
             ],
         },
 ```
+
+## 逻辑运算指令
+
+### AND指令
+
+```python
+        AND: {
+            (pin.AM_REG, pin.AM_INS): [
+                pin.DST_R | pin.A_IN,
+                pin.SRC_OUT | pin.B_IN,
+                pin.OP_AND | pin.ALU_OUT | pin.DST_W | pin.ALU_PSW,
+            ],
+            (pin.AM_REG, pin.AM_REG): [
+                pin.DST_R | pin.A_IN,
+                pin.SRC_R | pin.B_IN,
+                pin.OP_AND | pin.ALU_OUT | pin.DST_W | pin.ALU_PSW,
+            ],
+        },
+```
+
+### OR指令
+
+```python
+        OR: {
+            (pin.AM_REG, pin.AM_INS): [
+                pin.DST_R | pin.A_IN,
+                pin.SRC_OUT | pin.B_IN,
+                pin.OP_OR | pin.ALU_OUT | pin.DST_W | pin.ALU_PSW,
+            ],
+            (pin.AM_REG, pin.AM_REG): [
+                pin.DST_R | pin.A_IN,
+                pin.SRC_R | pin.B_IN,
+                pin.OP_OR | pin.ALU_OUT | pin.DST_W | pin.ALU_PSW,
+            ],
+        },
+```
+
+### XOR指令
+
+```python
+        XOR: {
+            (pin.AM_REG, pin.AM_INS): [
+                pin.DST_R | pin.A_IN,
+                pin.SRC_OUT | pin.B_IN,
+                pin.OP_XOR | pin.ALU_OUT | pin.DST_W | pin.ALU_PSW,
+            ],
+            (pin.AM_REG, pin.AM_REG): [
+                pin.DST_R | pin.A_IN,
+                pin.SRC_R | pin.B_IN,
+                pin.OP_XOR | pin.ALU_OUT | pin.DST_W | pin.ALU_PSW,
+            ],
+        },
+```
+
+### NOT指令
+
+```python
+        NOT: {
+            pin.AM_REG: [
+                pin.DST_R | pin.A_IN,
+                pin.OP_NOT | pin.ALU_OUT | pin.DST_W | pin.ALU_PSW,
+            ],
+        },
+```

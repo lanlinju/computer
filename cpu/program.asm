@@ -1,15 +1,5 @@
-MOV D, 0;
+MOV D, 5; 00000101
 
-INC D;
-INC D;
-INC D;
-INC D;
-INC D;
-
-DEC D;
-DEC D;
-DEC D;
-DEC D;
-DEC D;
+NOT D; 11111010 (250)
 
 HLT
