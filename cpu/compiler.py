@@ -28,6 +28,12 @@ OP1 = {
     'DEC': ASM.DEC,  # 0100_0100
     'NOT': ASM.NOT,
     'JMP': ASM.JMP,
+    'JO': ASM.JO,
+    'JNO': ASM.JNO,
+    'JZ': ASM.JZ,
+    'JNZ': ASM.JNZ,
+    'JP': ASM.JP,
+    'JNP': ASM.JNP,
 }
 
 OP0 = {

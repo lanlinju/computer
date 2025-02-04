@@ -229,3 +229,40 @@ MOV: {
             ],
         },
 ```
+
+## 条件转移指令
+
+```
+# 6大条件跳转，根据PSW来判定
+# 溢出跳转
+JO = (4 << pin.ADDR1_SHIFT) | pin.ADDR1
+# 非溢出跳转
+JNO = (5 << pin.ADDR1_SHIFT) | pin.ADDR1
+# 零跳转
+JZ = (6 << pin.ADDR1_SHIFT) | pin.ADDR1
+# 非零跳转
+JNZ = (7 << pin.ADDR1_SHIFT) | pin.ADDR1
+# 奇数跳转
+JP = (8 << pin.ADDR1_SHIFT) | pin.ADDR1
+# 非奇数跳转
+JNP = (9 << pin.ADDR1_SHIFT) | pin.ADDR1
+```
+
+### ASM例子
+
+```assembly
+    MOV D, 0;
+
+increase:
+    INC D;
+    CMP D, 5;
+    JO increase
+
+decrease:
+    DEC D;
+    CMP D, 0;
+    JZ increase
+    JMP decrease
+
+    HLT
+```
