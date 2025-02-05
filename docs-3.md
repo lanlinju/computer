@@ -458,6 +458,7 @@ increase:
     MOV SP, 0x10; [0, 0xF]
     JMP start
 
+
 show:
     MOV D, 255;
     ret;
