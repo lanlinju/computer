@@ -51,7 +51,13 @@ def get_condition_jump(exec, op, psw):
     if op == ASM.JNP and not parity:
         return exec
     return [pin.CYC]
-    
+   
+def get_interrupt(exec, op, psw):
+    interrupt = psw & 8
+    if interrupt:
+        return exec
+    return [pin.CYC]
+ 
 def compile_addr1(addr, ir, psw, index):
     global micro
 
@@ -70,6 +76,8 @@ def compile_addr1(addr, ir, psw, index):
     EXEC = INST[op][amd]
     if op in CJMPS:
         EXEC = get_condition_jump(EXEC, op, psw)
+    if op == ASM.INT:
+        EXEC = get_interrupt(EXEC, op, psw)
     
     if index < len(EXEC):
         micro[addr] = EXEC[index]

@@ -387,3 +387,99 @@ increase:
 
     HLT
 ```
+
+## 内中断指令
+
+### 中断指令
+
+- INT - 中断调用
+- IRET - 中断返回
+- STI - 开中断
+- CLI - 关中断
+  
+### INT命令
+
+```python
+        INT: {
+            pin.AM_INS: [
+                pin.SP_OUT | pin.A_IN,
+                pin.OP_DEC | pin.ALU_OUT | pin.SP_IN,
+                pin.SP_OUT | pin.MAR_IN,
+                pin.SS_OUT | pin.MSR_IN,
+                pin.PC_OUT | pin.RAM_IN,
+                pin.DST_OUT | pin.PC_IN,
+                pin.CS_OUT | pin.MSR_IN | pin.ALU_PSW | pin.ALU_CLI,
+            ],
+            pin.AM_REG: [
+                pin.SP_OUT | pin.A_IN,
+                pin.OP_DEC | pin.ALU_OUT | pin.SP_IN,
+                pin.SP_OUT | pin.MAR_IN,
+                pin.SS_OUT | pin.MSR_IN,
+                pin.PC_OUT | pin.RAM_IN,
+                pin.DST_R | pin.PC_IN,
+                pin.CS_OUT | pin.MSR_IN | pin.ALU_PSW | pin.ALU_CLI,
+            ],
+        },
+```
+
+### IRET指令
+
+```python
+        IRET: [
+            pin.SP_OUT | pin.MAR_IN,
+            pin.SS_OUT | pin.MSR_IN,
+            pin.PC_IN | pin.RAM_OUT,
+            pin.SP_OUT | pin.A_IN,
+            pin.OP_INC | pin.ALU_OUT | pin.SP_IN,
+            pin.CS_OUT | pin.MSR_IN | pin.ALU_PSW | pin.ALU_STI,
+        ],
+```
+
+### STI指令
+
+```python
+        STI: [
+            pin.ALU_PSW | pin.ALU_STI,
+        ],
+```
+
+### CLI指令
+
+```python
+        CLI: [
+            pin.ALU_PSW | pin.ALU_CLI,
+        ],
+```
+
+### ASM例子
+
+```python
+    MOV SS, 1
+    MOV SP, 0x10; [0, 0xF]
+    JMP start
+
+show:
+    MOV D, 255;
+    ret;
+
+start:
+    MOV C, 0;
+
+increase:
+    INC C;
+    MOV D, C;
+    JP disable;
+
+enable:
+    sti;
+    jmp interrupt;
+
+disable:
+    cli;
+
+interrupt:
+    int show;
+    JMP increase
+
+    HLT
+```

@@ -12,7 +12,17 @@ start:
 increase:
     INC C;
     MOV D, C;
-    call show;
+    JP disable;
+
+enable:
+    sti;
+    jmp interrupt;
+
+disable:
+    cli;
+
+interrupt:
+    int show;
     JMP increase
 
     HLT
