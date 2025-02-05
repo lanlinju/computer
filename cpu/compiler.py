@@ -36,10 +36,12 @@ OP1 = {
     'JNP': ASM.JNP,
     'PUSH': ASM.PUSH,
     'POP': ASM.POP,
+    'CALL': ASM.CALL,
 }
 
 OP0 = {
     'NOP': ASM.NOP,  # 0000_0000, 0x00
+    'RET': ASM.RET,
     'HLT': ASM.HLT,  # 0011_1111, ox3f
 }
 

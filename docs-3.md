@@ -324,3 +324,66 @@ decrease:
     MOV D, A;
     HLT
 ```
+
+## 函数调用指令
+
+### CALL命令
+
+```python
+        CALL: {
+            pin.AM_INS: [
+                pin.SP_OUT | pin.A_IN,
+                pin.OP_DEC | pin.ALU_OUT | pin.SP_IN,
+                pin.SP_OUT | pin.MAR_IN,
+                pin.SS_OUT | pin.MSR_IN,
+                pin.PC_OUT | pin.RAM_IN,
+                pin.DST_OUT | pin.PC_IN,
+                pin.CS_OUT | pin.MSR_IN,
+            ],
+            pin.AM_REG: [
+                pin.SP_OUT | pin.A_IN,
+                pin.OP_DEC | pin.ALU_OUT | pin.SP_IN,
+                pin.SP_OUT | pin.MAR_IN,
+                pin.SS_OUT | pin.MSR_IN,
+                pin.PC_OUT | pin.RAM_IN,
+                pin.DST_R | pin.PC_IN,
+                pin.CS_OUT | pin.MSR_IN,
+            ],
+        },
+```
+
+### RET指令
+
+```python
+        RET: [
+            pin.SP_OUT | pin.MAR_IN,
+            pin.SS_OUT | pin.MSR_IN,
+            pin.PC_IN | pin.RAM_OUT,
+            pin.SP_OUT | pin.A_IN,
+            pin.OP_INC | pin.ALU_OUT | pin.SP_IN,
+            pin.CS_OUT | pin.MSR_IN,
+        ],
+```
+
+### ASM例子
+
+```python
+    MOV SS, 1
+    MOV SP, 0x10; [0, 0xF]
+    JMP start
+
+show:
+    MOV D, 255;
+    ret;
+
+start:
+    MOV C, 0;
+
+increase:
+    INC C;
+    MOV D, C;
+    call show;
+    JMP increase
+
+    HLT
+```
