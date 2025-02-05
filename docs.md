@@ -423,3 +423,28 @@ print('Finish compile!!!')
 ## 程序状态字
 
 ![程序状态字](img/ALU/program_state_word.png)
+
+## 7段数码管
+
+### 显示16进制数
+
+![16进制数](img/util/hex_display.png)
+
+### 显示10进制数
+
+![10进制数](img/util/dec_display.png)
+
+### python脚本生成译码器数据
+
+```python
+import os
+
+dirname = os.path.dirname(__file__)
+filename = os.path.join(dirname, '532decoder.bin')
+
+with open(filename, 'wb') as file:
+    for var in range(32):
+        value = 1 << var
+        result = value.to_bytes(4, byteorder='little')
+        file.write(result)
+```
