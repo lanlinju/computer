@@ -2,7 +2,7 @@
 
 ## 一个8位二进制CPU的设计和实现
 
-![CPU](img/cpu/cpu.png)
+![CPU](image/cpu.png)
 
 ## 实现指令列表如下
 
