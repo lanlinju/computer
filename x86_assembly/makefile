@@ -6,7 +6,7 @@ master.img: boot.bin
 
 .PHONY: bochs
 bochs: master.img
-	bochs-debugger -q -unlock
+	bochs-debugger -q -debugger -f bochsrc -unlock
 
 .PHONY: clean
 clean:
