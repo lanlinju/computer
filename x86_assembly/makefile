@@ -9,7 +9,7 @@ endif
 
 .PHONY: bochs
 bochs: build/master.img
-	cd build && bochs-debugger -q -debugger -f build/bochsrc -unlock
+	cd build && bochs-debugger -q -debugger -f bochsrc -unlock
 
 .PHONY: clean
 clean:

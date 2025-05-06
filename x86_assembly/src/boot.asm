@@ -1,11 +1,5 @@
 [org 0x7c00]
 
-CRT_ADDR_REG equ 0x3D4 ; 控制寄存器端口（写入寄存器索引）
-CRT_DATA_REG equ 0x3D5 ; 数据寄存器端口（写入/读出寄存器值）
-
-CRT_CURSOR_HIGH equ 0x0E
-CRT_CURSOR_LOW equ 0x0F
-
 mov ax, 3
 int 0x10    ; 设置显示模式为80x25文本模式
 
@@ -16,84 +10,116 @@ mov sp, 0x7c00
 
 xchg bx, bx
 
-mov ax, 0xb800
-mov es, ax
+;0 --> 0x1000
 
-mov si, message
+mov dx, 0x1f2
+mov al, 1
+out dx, al; 设置扇区数量
 
-print:
-    call get_cursor
-    mov di, ax
-    shl di, 1
+mov al, 0
 
-    mov bl, [si]
-    cmp bl, 0
-    jz print_end
+inc dx; 0x1f3
+out dx, al
 
-    mov [es:di], bl
+inc dx; 0x1f4
+out dx, al
 
-    inc si
-    inc ax
-    call set_cursor
-    jmp print
+inc dx; 0x1f5
+out dx, al
 
-print_end:   
+inc dx; 0x1f6
+mov al, 0b1110_0000
+out dx, al
 
-halt:
-    jmp halt
+inc dx; 0x1f7
+mov al, 0x20; 读硬盘
+out dx, al
 
-get_cursor:
-    ; 获取光标位置, 返回值存储在 AX 寄存器中
-    push dx
+.check_read_state:
+    nop
+    nop
+    nop ; 一点延迟
 
-    mov dx, CRT_ADDR_REG
-    mov al, CRT_CURSOR_HIGH
-    out dx, al
-
-    mov dx, CRT_DATA_REG
-    in al, dx 
-
-    shl ax, 8
-
-    mov dx, CRT_ADDR_REG
-    mov al, CRT_CURSOR_LOW
-    out dx, al
-
-    mov dx, CRT_DATA_REG
     in al, dx
+    and al, 0b1000_1000
+    cmp al, 0b0000_1000
+    jne .check_read_state
 
-    pop dx
-    ret 
+mov ax, 0x100
+mov es, ax
+mov di, 0
+mov dx, 0x1f0
 
-set_cursor:
-    ; 设置光标位置，参数用 ax 传递
-    push dx
-    push bx
+read_loop:
+    nop
+    nop
+    nop
+    
+    in ax, dx
+    mov [es:di], ax
 
-    mov bx, ax
+    add di, 2
+    cmp di, 512
+    jnz read_loop
 
-    mov dx, CRT_ADDR_REG
-    mov al, CRT_CURSOR_LOW
-    out dx, al
+xchg bx, bx
 
-    mov dx, CRT_DATA_REG
-    mov al, bl
-    out dx, al
+mov dx, 0x1f2
+mov al, 1
+out dx, al; 设置扇区数量
 
-    mov dx, CRT_ADDR_REG
-    mov al, CRT_CURSOR_HIGH
-    out dx, al
+mov al, 2
 
-    mov dx, CRT_DATA_REG
-    mov al, bh
-    out dx, al    
+inc dx; 0x1f3
+out dx, al
 
-    pop bx
-    pop dx
-    ret
+mov al, 0
 
-message:
-    db 'Hello, World!', 0
+inc dx; 0x1f4
+out dx, al
+
+inc dx; 0x1f5
+out dx, al
+
+inc dx; 0x1f6
+mov al, 0b1110_0000
+out dx, al
+
+inc dx; 0x1f7
+mov al, 0x30; 写硬盘
+out dx, al
+
+mov ax, 0x100
+mov es, ax
+mov di, 0
+mov dx, 0x1f0
+
+write_loop:
+    nop
+    nop
+    nop
+
+    mov ax, [es:di]
+    out dx, ax
+
+    add di, 2
+    cmp di, 512
+    jnz write_loop
+
+mov dx, 0x1f7
+.check_write_state:
+    nop
+    nop
+    nop ; 一点延迟
+
+    in al, dx
+    and al, 0b1000_0000
+    cmp al, 0b1000_0000
+    je .check_write_state
+
+xchg bx, bx
+
+jmp $
 
 times 510 - ($ - $$) db 0 
 db 0x55, 0xaa
