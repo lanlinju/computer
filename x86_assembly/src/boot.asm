@@ -5,10 +5,11 @@ int 0x10    ; 设置显示模式为80x25文本模式
 
 mov ax, 0
 mov ds, ax
+mov es, ax
 mov ss, ax
 mov sp, 0x7c00
 
-xchg bx, bx
+; xchg bx, bx
 
 mov edi, 0x1000
 mov ecx, 2
@@ -56,6 +57,20 @@ read_disk:
     mov al, 0x20; 读硬盘
     out dx, al
 
+    xor ecx, ecx
+    mov cl, bl
+.read:
+    push cx
+    call .waits
+    call .reads
+    pop cx
+    loop .read
+
+    popad
+    ret
+
+.waits:
+    mov dx, 0x1f7
     .check:
         nop
         nop
@@ -66,13 +81,11 @@ read_disk:
         cmp al, 0b0000_1000
         jne .check
 
-    xor eax, eax
-    mov al, bl
-    mov dx, 256
-    mul dx; ax = bl * 256
+    ret
 
+.reads:
     mov dx, 0x1f0
-    mov cx, ax
+    mov cx, 256;一个扇区 256 个字
     .readw:
         nop
         nop
@@ -84,7 +97,6 @@ read_disk:
         add edi, 2
         loop .readw
 
-    popad
     ret
 
 xchg bx, bx
