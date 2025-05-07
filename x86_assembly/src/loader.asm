@@ -43,7 +43,7 @@ prepare_protext_mode:
     or eax, 1
     mov cr0, eax 
 
-    jmp word code_selector:protect_enable
+    jmp dword code_selector:protect_enable
 
     ud2; 出错
 
@@ -60,21 +60,20 @@ protect_enable:
 
     mov esp, 0x10000
 
-    mov byte [0xb8000], 'P'
+    mov ax, test_selector
+    mov gs, ax
 
     xchg bx, bx
 
-    mov byte [0x200000], 'P'
+    mov word [gs:0x2000], 0x55aa
 
     xchg bx, bx
 
     jmp $
 
-base equ 0
-limit equ 0xfffff
-
 code_selector equ (1 << 3)
 data_selector equ (2 << 3)
+test_selector equ (3 << 3)
 
 gdt_ptr:
     dw (gdt_end - gdt_base - 1)
@@ -83,19 +82,26 @@ gdt_ptr:
 gdt_base:
     dd 0, 0
 gdt_code:
-    dw limit & 0xffff
-    dw base & 0xffff
-    db (base >> 16) & 0xff
-    db 0b1110 | 0b1001_0000
-    db 0b1100_0000 | (limit >> 16)
-    db (base >> 24) & 0xff
+    dw 0xffff
+    dw 0
+    db 0
+    db 0b1001_1110
+    db 0b1100_1111 
+    db 0
 gdt_data:
-    dw limit & 0xffff
-    dw base & 0xffff
-    db (base >> 16) & 0xff
-    db 0b0010 | 0b1001_0000
-    db 0b1100_0000 | (limit >> 16)
-    db (base >> 24) & 0xff
+    dw 0xffff
+    dw 0
+    db 0
+    db 0b1001_0010
+    db 0b1100_1111
+    db 0
+gdt_test:
+    dw 0xfff
+    dw 0x0000
+    db 0x1
+    db 0b1001_0010 ; 0x92
+    db 0b0100_0000 ; 0x40
+    db 0x0
 gdt_end:
 
 ards_cout:
