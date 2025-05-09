@@ -3,7 +3,7 @@ CFLAGS:= -m32 \
 		 -fno-asynchronous-unwind-tables \
 		 -fno-pic \
 		 -mpreferred-stack-boundary=2 \
-		#  -fno-stack-protector \
+		 -fno-stack-protector \
 		#  -fno-builtin \
 		#  -fomit-frame-pointer \
 		#  -static \
@@ -14,3 +14,7 @@ CC:=gcc
 .PHONY: hello.s
 hello.s: hello.c
 	gcc $(CFLAGS) -S $< -o $@
+
+.PHONY: variable.s
+variable.s: variable.c
+	gcc $(CFLAGS) -S $< -o $@	
