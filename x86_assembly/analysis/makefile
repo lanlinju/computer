@@ -4,7 +4,7 @@ CFLAGS:= -m32 \
 		 -fno-pic \
 		 -mpreferred-stack-boundary=2 \
 		 -fno-stack-protector \
-		#  -fno-builtin \
+		 -fno-builtin \
 		#  -fomit-frame-pointer \
 		#  -static \
 		#  -fverbose-asm \
@@ -17,4 +17,7 @@ hello.s: hello.c
 
 .PHONY: variable.s
 variable.s: variable.c
+	gcc $(CFLAGS) -S $< -o $@	
+
+%.s: %.c
 	gcc $(CFLAGS) -S $< -o $@	
