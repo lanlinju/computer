@@ -16,3 +16,4 @@
 - 李忠 & 王晓波 & 余洁 - X86汇编语言
 - Richard Blum - 汇编语言程序设计
 - Stephen G. Kochan - Programming in C
+- P.J.Plauger - The Standard C Library
